@@ -9,7 +9,7 @@ sys.path.append(os.path.abspath(os.path.abspath(os.curdir)))
 from dataset.dataset_generator import create_simple_regression_dataset
 
 
-X, y = create_simple_regression_dataset(plot=True)
+X, y = create_simple_regression_dataset()
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
 
 knnreg = KNeighborsRegressor(n_neighbors = 5).fit(X_train, y_train)
