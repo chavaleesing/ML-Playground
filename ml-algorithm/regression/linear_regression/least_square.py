@@ -9,8 +9,8 @@ from dataset.dataset_generator import create_simple_regression_dataset
 
 
 X, y = create_simple_regression_dataset()
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
-
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 1)
+print(X, y)
 linreg = LinearRegression().fit(X_train, y_train)
 
 print(f"y-interception = {linreg.intercept_}, slope = {linreg.coef_}")
@@ -19,9 +19,9 @@ print(f'R-squared score (test): {linreg.score(X_test, y_test)}')
 
 ## Plot graph
 import matplotlib.pyplot as plt
-plt.figure(figsize=(5,4))
-plt.scatter(X, y, marker= 'o', s=50, alpha=0.8)
-plt.plot(X, linreg.coef_ * X + linreg.intercept_, 'r-')
+plt.figure(figsize=(5,5))
+plt.scatter(X, y, marker= '.') # plot dataset
+plt.plot(X, linreg.coef_ * X + linreg.intercept_, color='green') # plot predicted graph
 plt.title('Least-squares linear regression')
 plt.xlabel('Feature value (x)')
 plt.ylabel('Target value (y)')
