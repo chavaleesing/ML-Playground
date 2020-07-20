@@ -7,7 +7,7 @@ from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
 
 sys.path.append(os.path.abspath(os.path.abspath(os.curdir)))
-from dataset.dataset_generator import create_simple_regression_dataset
+from utils.dataset_generator import create_simple_regression_dataset
 
 
 X, y = create_simple_regression_dataset()

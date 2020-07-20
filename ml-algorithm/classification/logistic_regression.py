@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.append('/Users/chavalee/ings/ML-Playground')
-from dataset.dataset_generator import create_simple_classification_dataset
+from utils.dataset_generator import create_simple_classification_dataset
 # from utils.plotter import plot_class_regions_for_classifier_subplot
 
 
