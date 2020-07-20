@@ -71,4 +71,4 @@ def create_classification_cancer_dataset():
 def create_classification_iris_dataset():
     from sklearn.datasets import load_iris
     iris = load_iris()
-    return iris.data, iris.target
+    return iris

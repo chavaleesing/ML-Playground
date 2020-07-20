@@ -21,12 +21,14 @@ def plot_decision_tree(clf, feature_names, class_names):
     # import sys; sys.executable
     # !{sys.executable} -m pip install pydotplus
 
-    export_graphviz(clf, out_file="adspy_temp.dot", feature_names=feature_names, class_names=class_names, filled = True, impurity = False)
-    with open("adspy_temp.dot") as f:
+    export_graphviz(clf, out_file="temp.dot", feature_names=feature_names, class_names=class_names, filled = True, impurity = False)
+    with open("temp.dot") as f:
         dot_graph = f.read()
     # Alternate method using pydotplus, if installed.
     # graph = pydotplus.graphviz.graph_from_dot_data(dot_graph)
     # return graph.create_png()
+    from subprocess import check_call
+    check_call(['dot','-Tpng','temp.dot','-o','temp_plt.png'])
     return graphviz.Source(dot_graph)
 
 def plot_feature_importances(clf, feature_names):
