@@ -67,3 +67,8 @@ def create_classification_cancer_dataset():
     cancer = load_breast_cancer()
     (X_cancer, y_cancer) = load_breast_cancer(return_X_y = True)
     return (X_cancer, y_cancer)
+
+def create_classification_iris_dataset():
+    from sklearn.datasets import load_iris
+    iris = load_iris()
+    return iris.data, iris.target
