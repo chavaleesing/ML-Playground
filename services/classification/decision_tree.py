@@ -24,5 +24,3 @@ def classify():
 
 
 # %%
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-from matplotlib.figure import Figure
