@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
-import numpy as np
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-from matplotlib.colors import ListedColormap
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
