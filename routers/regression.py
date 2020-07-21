@@ -6,6 +6,8 @@ from starlette.responses import HTMLResponse
 from services.regression import knn as knn_service
 from services.regression.linear_regression import least_square as least_square_service
 from services.regression.linear_regression import ridge_regression as ridge_regression_service
+from services.regression import neural_network as neural_network_service
+
 
 ROOT_DIR = os.path.abspath(os.curdir)
 router = APIRouter()
@@ -52,3 +54,15 @@ async def knn(params: Request = {}):
         )
     return response
 
+
+@router.get("/neuralnetwork")
+async def knn(params: Request = {}):
+    response = neural_network_service.demonstrate(params.query_params)
+    if params.query_params.get("plot"):
+        response = HTMLResponse(
+        f'<html> \
+            <h2><pre>{response}</pre></h2> \
+            <img src="{ROOT_DIR}/temp_plt.png" alt="plt"/> \
+        </html>'
+        )
+    return response
