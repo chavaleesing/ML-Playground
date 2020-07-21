@@ -1,11 +1,13 @@
-import pandas as pd
 import os
+
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
-from utils import plotter
+import pandas as pd
 from matplotlib.backends.backend_agg import FigureCanvasAgg
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+
+from utils import plotter
 
 
 def demonstrate(params):

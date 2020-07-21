@@ -1,7 +1,8 @@
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
-from utils.dataset_generator import create_classification_iris_dataset
+from sklearn.tree import DecisionTreeClassifier
+
 from utils import plotter
+from utils.dataset_generator import create_classification_iris_dataset
 
 
 def demonstrate(params):

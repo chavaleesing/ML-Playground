@@ -3,8 +3,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-from utils.dataset_generator import create_simple_classification_dataset, create_complex_classification_dataset
 from utils import plotter
+from utils.dataset_generator import create_complex_classification_dataset, create_simple_classification_dataset
 
 
 def demonstrate(params):
