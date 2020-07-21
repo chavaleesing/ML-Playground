@@ -1,28 +1,33 @@
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 import numpy as np
-import os
-import sys
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
 
-sys.path.append(os.path.abspath(os.path.abspath(os.curdir)))
 from utils.dataset_generator import create_simple_regression_dataset
 
 
-X, y = create_simple_regression_dataset()
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 1)
-print(X, y)
-linreg = LinearRegression().fit(X_train, y_train)
+def demonstrate(params):
+    X, y = create_simple_regression_dataset()
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
+    reg = LinearRegression().fit(X_train, y_train)
 
-print(f"y-interception = {linreg.intercept_}, slope = {linreg.coef_}")
-print(f'R-squared score (training): {linreg.score(X_train, y_train)}')
-print(f'R-squared score (test): {linreg.score(X_test, y_test)}')
+    accuracy = {
+        "accuracy_train_set": reg.score(X_train, y_train),
+        "accuracy_test_set": reg.score(X_test, y_test)
+    }
 
-## Plot graph
-import matplotlib.pyplot as plt
-plt.figure(figsize=(5,5))
-plt.scatter(X, y, marker= '.') # plot dataset
-plt.plot(X, linreg.coef_ * X + linreg.intercept_, color='green') # plot predicted graph
-plt.title('Least-squares linear regression')
-plt.xlabel('Feature value (x)')
-plt.ylabel('Target value (y)')
-plt.show()
+    if params.get("plot"):
+        fig, subaxes = plt.subplots(1, 1, figsize=(8,4))
+        X_predict_input = np.linspace(-3, 3, 50).reshape(-1,1)
+        y_predict_output = reg.predict(X_predict_input)
+        subaxes.plot(X_predict_input, y_predict_output, '^', markersize = 10,
+                    label='Predicted', alpha=0.8)
+        subaxes.plot(X_train, y_train, 'o', label='True Value', alpha=0.8)
+        subaxes.set_xlabel('Input feature')
+        subaxes.set_ylabel('Target value')
+        subaxes.set_title('Least Square regression (K={3})')
+        subaxes.legend()
+        plt.tight_layout()
+        fig.savefig('temp_plt.png', bbox_inches='tight')
+
+    return accuracy

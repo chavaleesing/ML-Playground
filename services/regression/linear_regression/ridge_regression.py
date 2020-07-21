@@ -1,24 +1,33 @@
-from sklearn.linear_model import Ridge
-from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 import numpy as np
-import os
-import sys
-from sklearn.preprocessing import MinMaxScaler
-scaler = MinMaxScaler()
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge
 
-sys.path.append(os.path.abspath(os.path.abspath(os.curdir)))
 from utils.dataset_generator import create_simple_regression_dataset
 
 
-X, y = create_simple_regression_dataset()
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
+def demonstrate(params):
+    X, y = create_simple_regression_dataset()
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
+    reg = Ridge(alpha=20.0).fit(X_train, y_train)
 
-# linreg = Ridge(alpha=20).fit(X_train, y_train)
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+    accuracy = {
+        "accuracy_train_set": reg.score(X_train, y_train),
+        "accuracy_test_set": reg.score(X_test, y_test)
+    }
 
-linridge = Ridge(alpha=20.0).fit(X_train_scaled, y_train)
+    if params.get("plot"):
+        fig, subaxes = plt.subplots(1, 1, figsize=(8,4))
+        X_predict_input = np.linspace(-3, 3, 50).reshape(-1,1)
+        y_predict_output = reg.predict(X_predict_input)
+        subaxes.plot(X_predict_input, y_predict_output, '^', markersize = 10,
+                    label='Predicted', alpha=0.8)
+        subaxes.plot(X_train, y_train, 'o', label='True Value', alpha=0.8)
+        subaxes.set_xlabel('Input feature')
+        subaxes.set_ylabel('Target value')
+        subaxes.set_title('Least Square regression (K={3})')
+        subaxes.legend()
+        plt.tight_layout()
+        fig.savefig('temp_plt.png', bbox_inches='tight')
 
-print(f"y-interception = {linridge.intercept_}, slope = {linridge.coef_}")
-print(f'R-squared score (training): {linridge.score(X_train_scaled, y_train)}')
-print(f'R-squared score (test): {linridge.score(X_test_scaled, y_test)}')
+    return accuracy
