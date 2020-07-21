@@ -17,7 +17,7 @@ async def test():
 
 
 @router.get("/decisiontree")
-async def decision_tree(params: Request=None):
+async def decision_tree(params: Request={}):
     response = decision_tree_service.demonstrate(params.query_params)
     if params.query_params.get("plot"):
         response = HTMLResponse(
@@ -28,15 +28,13 @@ async def decision_tree(params: Request=None):
         )
     return response
 
-@router.get("/logistic")
-async def logistic():
-    import os
-    ROOT_DIR = os.path.abspath(os.curdir)
-    cv = logistic_regression_service.classify()
-    cv.print_png('temp_plt.png')
-    response = HTMLResponse(
+@router.get("/logisticregression")
+async def logistic(params: Request={}):
+    response = logistic_regression_service.demonstrate(params.query_params)
+    if params.query_params.get("plot"):
+        response = HTMLResponse(
         f'<html> \
-            <p>show plt .....</p> \
+            <p>{response}</p> \
             <body><img src="{ROOT_DIR}/temp_plt.png" alt="plt"></body> \
         </html>'
         )
