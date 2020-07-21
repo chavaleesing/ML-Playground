@@ -5,15 +5,18 @@ from utils import plotter
 
 
 def demonstrate(params):
-    dataset = params.get("dataset", "iris") # temp force to use iris dataset
-    if dataset == 'iris':
+    dataset = params.get("dataset", "iris")
+    max_depth = int(params.get("max_depth", 3))
+    if dataset == 'iris' or True:  # force to use iris dataset
         ds = create_classification_iris_dataset()
-    X_train, X_test, y_train, y_test = train_test_split(ds.data, ds.target)
-    clf = DecisionTreeClassifier(max_depth=int(params.get("max_depth", 3))).fit(X_train, y_train)
+        X, y = ds.data, ds.target
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
+    clf = DecisionTreeClassifier(max_depth=max_depth).fit(X_train, y_train)
 
     accuracy = {
         "accuracy_train_set": clf.score(X_train, y_train),
-        "accuracy_test_set": clf.score(X_test, y_test)
+        "accuracy_test_set": clf.score(X_test, y_test),
+        "feature_importances": clf.feature_importances_
     }
 
     if params.get("plot"):
