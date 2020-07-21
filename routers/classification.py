@@ -8,6 +8,7 @@ from services.classification import logistic_regression as logistic_regression_s
 from services.classification import knn as knn_service
 from services.classification import svm as svm_service
 from services.classification import naive_bayes as naive_bayes_service
+from services.classification import neural_network as neural_network_service
 
 
 ROOT_DIR = os.path.abspath(os.curdir)
@@ -74,6 +75,19 @@ async def svm(params: Request = {}):
 @router.get("/naivebayes")
 async def svm(params: Request = {}):
     response = naive_bayes_service.demonstrate(params.query_params)
+    if params.query_params.get("plot"):
+        response = HTMLResponse(
+        f'<html> \
+            <h2><pre>{response}</pre></h2> \
+            <img src="{ROOT_DIR}/temp_plt.png" alt="plt"/> \
+        </html>'
+        )
+    return response
+
+
+@router.get("/neuralnetwork")
+async def svm(params: Request = {}):
+    response = neural_network_service.demonstrate(params.query_params)
     if params.query_params.get("plot"):
         response = HTMLResponse(
         f'<html> \
