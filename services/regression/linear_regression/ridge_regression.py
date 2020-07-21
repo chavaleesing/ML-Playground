@@ -25,7 +25,7 @@ def demonstrate(params):
         subaxes.plot(X_train, y_train, 'o', label='True Value', alpha=0.8)
         subaxes.set_xlabel('Input feature')
         subaxes.set_ylabel('Target value')
-        subaxes.set_title('Least Square regression (K={3})')
+        subaxes.set_title('Ridge regression (K={3})')
         subaxes.legend()
         plt.tight_layout()
         fig.savefig('temp_plt.png', bbox_inches='tight')
