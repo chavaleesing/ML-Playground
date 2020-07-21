@@ -5,7 +5,7 @@ from matplotlib.colors import ListedColormap
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
-from utils.dataset_generator import create_simple_classification_dataset
+from utils.dataset_generator import create_simple_classification_dataset, create_complex_classification_dataset
 from utils import plotter
 
 
